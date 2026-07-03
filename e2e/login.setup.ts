@@ -6,7 +6,7 @@ assert(process.env.USERNAME1, 'USERNAME1 is not set');
 assert(process.env.PASSWORD, 'PASSWORD is not set');
 
 setup('Login', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.getByRole('heading', { name: 'Ready for a new adventure?' })).toBeVisible();
 
   await page.getByLabel('Sign in').click();
