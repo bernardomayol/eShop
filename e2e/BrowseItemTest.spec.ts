@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Browse Items', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
 
   await expect(page.getByRole('heading', { name: 'Ready for a new adventure?' })).toBeVisible();
 
