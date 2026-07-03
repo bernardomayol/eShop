@@ -1,25 +1,25 @@
 # Microservicio vs REST API: Diferencias Fundamentales
 
 ## Respuesta Corta
-**No son conceptos opuestos**, sino que un **microservicio suele SER un REST API**, pero con características adicionales que lo hacen "micro" y aislado.
+**No son conceptos opuestos**, sino que un **microservicio suele SER un REST API**, pero con caracterï¿½sticas adicionales que lo hacen "micro" y aislado.
 
-```
-REST API = Estilo de comunicación (HTTP, métodos GET/POST/PUT/DELETE)
-Microservicio = Arquitectura (servicio independiente, autónomo, con responsabilidad única)
+```text
+REST API = Estilo de comunicaciï¿½n (HTTP, mï¿½todos GET/POST/PUT/DELETE)
+Microservicio = Arquitectura (servicio independiente, autï¿½nomo, con responsabilidad ï¿½nica)
 ```
 
 ---
 
-## Comparación Directa
+## Comparaciï¿½n Directa
 
-### REST API (Concepto de Comunicación)
+### REST API (Concepto de Comunicaciï¿½n)
 
-```
+```text
 REST = Representational State Transfer
-Es simplemente un ESTILO para diseñar APIs usando HTTP
+Es simplemente un ESTILO para diseï¿½ar APIs usando HTTP
 
-Características:
-- Usa métodos HTTP: GET, POST, PUT, DELETE, PATCH
+Caracterï¿½sticas:
+- Usa mï¿½todos HTTP: GET, POST, PUT, DELETE, PATCH
 - Comunica mediante recursos (URLs)
 - Stateless (sin estado en servidor)
 - Devuelve datos en JSON/XML
@@ -35,29 +35,29 @@ DELETE /api/products/123      ? Eliminar producto 123
 **Puede ser:**
 - Un monolito con un REST API
 - Un microservicio con REST API
-- Una aplicación web con REST API
-- Una parte de un sistema más grande
+- Una aplicaciï¿½n web con REST API
+- Una parte de un sistema mï¿½s grande
 
 ---
 
-### Microservicio (Concepto Arquitectónico)
+### Microservicio (Concepto Arquitectï¿½nico)
 
-```
-Microservicio = Unidad de negocio autónoma e independiente
+```text
+Microservicio = Unidad de negocio autï¿½noma e independiente
 
-Características arquitectónicas:
-- Responsabilidad única (Single Responsibility)
+Caracterï¿½sticas arquitectï¿½nicas:
+- Responsabilidad ï¿½nica (Single Responsibility)
 - Base de datos propia (Database per Service)
 - Puede ser desplegado independientemente
 - Comunica con otros servicios mediante eventos o APIs
 - Escalable horizontalmente
 - Puede fallar sin derribar todo el sistema
-- Equipo pequeño (2-3 personas) puede mantenerlo
+- Equipo pequeï¿½o (2-3 personas) puede mantenerlo
 ```
 
 **Ejemplo en eShop:**
-```
-Catalog.API = Microservicio para gestionar catálogo
+```text
+Catalog.API = Microservicio para gestionar catï¿½logo
 ?? Responsabilidad: Solo productos
 ?? Base de datos: Propia (catalogdb)
 ?? Puede escalar: Independientemente
@@ -67,16 +67,16 @@ Catalog.API = Microservicio para gestionar catálogo
 
 ---
 
-## Catalyst.API: Análisis Real
+## Catalyst.API: Anï¿½lisis Real
 
-Mirando el código de `src/Catalog.API/Program.cs`:
+Mirando el cï¿½digo de `src/Catalog.API/Program.cs`:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();              // Configuración común de microservicios
-builder.AddApplicationServices();          // Servicios específicos del dominio
-builder.Services.AddProblemDetails();      // Manejo estándar de errores
+builder.AddServiceDefaults();              // Configuraciï¿½n comï¿½n de microservicios
+builder.AddApplicationServices();          // Servicios especï¿½ficos del dominio
+builder.Services.AddProblemDetails();      // Manejo estï¿½ndar de errores
 builder.Services.AddApiVersioning(...);   // Versionado de API
 
 // ... endpoints REST
@@ -87,10 +87,10 @@ app.Run();
 
 ### Catalog.API ES UN MICROSERVICIO QUE IMPLEMENTA REST API
 
-```
-Catalog.API = Microservicio (nivel arquitectónico)
+```text
+Catalog.API = Microservicio (nivel arquitectï¿½nico)
     ?
-    Implementado con REST API (estilo de comunicación)
+    Implementado con REST API (estilo de comunicaciï¿½n)
     ?
     Rutas REST HTTP:
     GET    /api/catalog/items
@@ -124,54 +124,54 @@ v1.MapGet("/items/by/{name:minlength(1)}", GetItemsByName)
     .WithName("GetItemsByName");
 ```
 
-**¿Ves que es REST?**
+**ï¿½Ves que es REST?**
 - Usa `MapGet` = HTTP GET
 - URLs con recursos `/items`
-- Parámetros en query strings `?id=123`
+- Parï¿½metros en query strings `?id=123`
 
-**¿Pero es también un Microservicio?**
-- ? Responsabilidad única: Solo catálogo
+**ï¿½Pero es tambiï¿½n un Microservicio?**
+- ? Responsabilidad ï¿½nica: Solo catï¿½logo
 - ? Base de datos propia: `catalogdb` en PostgreSQL
 - ? Independiente: Se puede desplegar solo
 - ? Desacoplado: Comunica por eventos RabbitMQ
-- ? Escalable: Múltiples instancias posibles
+- ? Escalable: Mï¿½ltiples instancias posibles
 
 ---
 
-## Visualización: Monolito vs Microservicio
+## Visualizaciï¿½n: Monolito vs Microservicio
 
-### Arquitectura MONOLÍTICA (tradicional)
+### Arquitectura MONOLï¿½TICA (tradicional)
 
-```
+```text
 ???????????????????????????????????????????
-?         Aplicación Monolítica            ?
+?         Aplicaciï¿½n Monolï¿½tica            ?
 ?                                          ?
 ?  ????????  ??????????  ??????????????? ?
 ?  ?Catalog?  ?Ordering?  ? Identity    ? ?
-?  ?Código ?  ?Código  ?  ? Código      ? ?
+?  ?Cï¿½digo ?  ?Cï¿½digo  ?  ? Cï¿½digo      ? ?
 ?  ????????  ??????????  ??????????????? ?
 ?                                          ?
 ?  Todo compilado en UN solo ejecutable    ?
 ?  Una base de datos compartida            ?
 ???????????????????????????????????????????
 
-REST API es solo cómo expones esta monolito:
+REST API es solo cï¿½mo expones esta monolito:
 GET  /api/catalog/items
 GET  /api/orders/123
 GET  /api/identity/users
 ```
 
 **Problemas:**
-- Una falla en cualquier módulo cae todo
-- No puedes escalar solo el catálogo
-- Un equipo puede afectar código de otro
-- Difícil de mantener cuando crece
+- Una falla en cualquier mï¿½dulo cae todo
+- No puedes escalar solo el catï¿½logo
+- Un equipo puede afectar cï¿½digo de otro
+- Difï¿½cil de mantener cuando crece
 
 ---
 
 ### Arquitectura MICROSERVICIOS (eShop)
 
-```
+```text
 ???????????????????????????????????????????????????????????
 ?                     Infraestructura                      ?
 ?  ????????????????  ????????????  ???????????????????   ?
@@ -181,7 +181,7 @@ GET  /api/identity/users
 ???????????????????????????????????????????????????????????
         ?                                        ?
         ?                                        ?
-        ? Comunicación                           ? Dato
+        ? Comunicaciï¿½n                           ? Dato
         ? por Eventos                            ? privado
         ?                                        ?
 ????????????????  ??????????????  ???????????????
@@ -204,15 +204,15 @@ Cada uno:
 ## Tabla Comparativa Detallada
 
 | Aspecto | REST API | Microservicio |
-|--------|---------|--------------|
-| **¿Qué es?** | Estilo de comunicación HTTP | Patrón arquitectónico |
-| **Puedo tener REST API sin microservicios?** | ? Sí (en monolito) | ? Un microservicio sin API no comunica |
-| **Scope** | Cómo hablan los sistemas | Cómo se organiza la arquitectura |
-| **Enfoque** | Interfaz / Protocolo | Autonomía / Responsabilidad |
-| **Ejemplo** | Método GET en `/items` | Servicio Catalog autónomo |
+| -------- | --------- | -------------- |
+| **ï¿½Quï¿½ es?** | Estilo de comunicaciï¿½n HTTP | Patrï¿½n arquitectï¿½nico |
+| **Puedo tener REST API sin microservicios?** | ? Sï¿½ (en monolito) | ? Un microservicio sin API no comunica |
+| **Scope** | Cï¿½mo hablan los sistemas | Cï¿½mo se organiza la arquitectura |
+| **Enfoque** | Interfaz / Protocolo | Autonomï¿½a / Responsabilidad |
+| **Ejemplo** | Mï¿½todo GET en `/items` | Servicio Catalog autï¿½nomo |
 | **Escala** | APIs | Servicios completos |
 | **Fallo** | Endpoint falla | Servicio completo falla |
-| **Despliegue** | Parte de aplicación mayor | Independiente |
+| **Despliegue** | Parte de aplicaciï¿½n mayor | Independiente |
 
 ---
 
@@ -220,30 +220,30 @@ Cada uno:
 
 ### Catalog.API es AMBAS cosas:
 
-```
+```text
 1. MICROSERVICIO (Arquitectura):
-   - Responsable solo de catálogo
+   - Responsable solo de catï¿½logo
    - Base de datos propia (catalogdb)
    - Desplegable independientemente
    - Se comunica por eventos RabbitMQ con otros servicios
 
-2. REST API (Implementación):
+2. REST API (Implementaciï¿½n):
    - Expone endpoints HTTP
-   - Métodos GET para obtener productos
+   - Mï¿½todos GET para obtener productos
    - JSON para respuestas
    - Versionado de API (v1, v2)
 ```
 
 **Flujo en eShop cuando consultas productos:**
 
-```
+```text
 Cliente (WebApp)
     ?
     ?? HTTP GET request
     ?  ??? /api/catalog/items
     ?
     ??? Catalog.API (Microservicio)
-        ?? Recibe petición REST
+        ?? Recibe peticiï¿½n REST
         ?? Consulta catalogdb
         ?? Busca en vector DB (IA)
         ?? Devuelve JSON
@@ -253,9 +253,9 @@ El MICROSERVICIO usa REST API para comunicar
 
 ---
 
-## Analogía del Mundo Real
+## Analogï¿½a del Mundo Real
 
-```
+```text
 RESTAURANTE TRADICIONAL (Monolito con REST API):
 ??????????????????????????????????
 ?     Un solo restaurante         ?
@@ -263,20 +263,20 @@ RESTAURANTE TRADICIONAL (Monolito con REST API):
 ? Cocina | Meseros | Caja | Bar  ? ? Todo en un lugar
 ?                                ?
 ??????????????????????????????????
-Cómo ordenas (REST API):
+Cï¿½mo ordenas (REST API):
 - "Dame un plato" (GET /food)
 - "Paga la cuenta" (POST /pay)
 
 Problema: Si la cocina falla, todo colapsa
 ```
 
-```
-COMIDA RÁPIDA CON SERVICIOS (Microservicios con REST API):
+```text
+COMIDA Rï¿½PIDA CON SERVICIOS (Microservicios con REST API):
 ????????????????????????????????????????????
 ?  Cada mostrador es independiente         ?
 ????????????????????????????????????????????
 ?  ???????????  ???????????  ???????????? ?
-?  ?Hamburguesa? ?Pizzería ?  ?Bebidas   ? ?
+?  ?Hamburguesa? ?Pizzerï¿½a ?  ?Bebidas   ? ?
 ?  ?(REST API) ? ?(REST API)? ?(REST API) ? ?
 ?  ?  (BD)     ? ?   (BD)  ? ?   (BD)    ? ?
 ?  ???????????  ???????????  ???????????? ?
@@ -284,12 +284,12 @@ COMIDA RÁPIDA CON SERVICIOS (Microservicios con REST API):
 ?  Coordinador central (Event Bus)         ?
 ????????????????????????????????????????????
 
-Cómo ordenas (REST API):
+Cï¿½mo ordenas (REST API):
 - "Dame hamburguesa" ? GET /hamburguesas/items
 - "Dame pizza" ? GET /pizza/items
 - "Dame bebida" ? GET /bebidas/items
 
-Beneficio: Si pizzería falla, hamburguesas sigue funcionando
+Beneficio: Si pizzerï¿½a falla, hamburguesas sigue funcionando
 ```
 
 ---
@@ -297,55 +297,55 @@ Beneficio: Si pizzería falla, hamburguesas sigue funcionando
 ## Diferencias Clave Resumidas
 
 ### REST API
-- ? Es un **PROTOCOLO** de comunicación
-- ? Define cómo exponer datos via HTTP
+- ? Es un **PROTOCOLO** de comunicaciï¿½n
+- ? Define cï¿½mo exponer datos via HTTP
 - ? Puede existir en monolito
 - ? Usa verbos HTTP (GET, POST, etc.)
 - ? Comunica entre cliente-servidor
 
 ### Microservicio
-- ? Es un **PATRÓN** de arquitectura
-- ? Define autonomía e independencia
+- ? Es un **PATRï¿½N** de arquitectura
+- ? Define autonomï¿½a e independencia
 - ? Requiere API para comunicar con otros
-- ? Responsabilidad única
+- ? Responsabilidad ï¿½nica
 - ? Base de datos propia
-- ? Comunicación asíncrona (eventos) Y síncrona (APIs)
+- ? Comunicaciï¿½n asï¿½ncrona (eventos) Y sï¿½ncrona (APIs)
 
 ---
 
 ## Lo que debes saber para entrevistas
 
-**Pregunta: ¿Cuál es la diferencia entre una REST API y un microservicio?**
+**Pregunta: ï¿½Cuï¿½l es la diferencia entre una REST API y un microservicio?**
 
 **Respuesta perfecta:**
-> "Un microservicio NO es opuesto a REST API. REST es un estilo de comunicación, mientras que un microservicio es un patrón arquitectónico. 
+> "Un microservicio NO es opuesto a REST API. REST es un estilo de comunicaciï¿½n, mientras que un microservicio es un patrï¿½n arquitectï¿½nico. 
 > 
 > En eShop, Catalog.API es un microservicio que IMPLEMENTA una REST API. Catalog.API es micro porque:
-> - Tiene responsabilidad única (gestionar catálogo)
+> - Tiene responsabilidad ï¿½nica (gestionar catï¿½logo)
 > - Tiene base de datos propia (catalogdb)
 > - Se despliega independientemente
 > - Se comunica con otros servicios por eventos (RabbitMQ)
 > 
-> El REST API es CÓMO expone sus funcionalidades (HTTP GET, POST, etc.).
+> El REST API es Cï¿½MO expone sus funcionalidades (HTTP GET, POST, etc.).
 > 
-> Podrías tener un monolito con REST API (no es microservicio).
-> O podrías tener microservicios que comunican por gRPC en vez de REST.
-> La REST API es la implementación; el microservicio es la arquitectura."
+> Podrï¿½as tener un monolito con REST API (no es microservicio).
+> O podrï¿½as tener microservicios que comunican por gRPC en vez de REST.
+> La REST API es la implementaciï¿½n; el microservicio es la arquitectura."
 
 ---
 
-## Conclusión
+## Conclusiï¿½n
 
-```
-?? ¿Qué es Catalog.API? ?????????????????????
+```text
+?? ï¿½Quï¿½ es Catalog.API? ?????????????????????
 ?                                            ?
-? NIVEL ARQUITECTÓNICO:  Microservicio       ?
-? ?? Responsabilidad única                   ?
+? NIVEL ARQUITECTï¿½NICO:  Microservicio       ?
+? ?? Responsabilidad ï¿½nica                   ?
 ? ?? Base de datos propia                    ?
 ? ?? Desacoplado de otros servicios          ?
-? ?? Autónomo                                ?
+? ?? Autï¿½nomo                                ?
 ?                                            ?
-? NIVEL IMPLEMENTACIÓN:  REST API            ?
+? NIVEL IMPLEMENTACIï¿½N:  REST API            ?
 ? ?? HTTP con GET/POST/PUT/DELETE            ?
 ? ?? Devuelve JSON                           ?
 ? ?? URLs estructuradas                      ?
@@ -356,9 +356,8 @@ Beneficio: Si pizzería falla, hamburguesas sigue funcionando
 ??????????????????????????????????????????????
 ```
 
-**Analógicamente:**
+**Analï¿½gicamente:**
 - REST API = El idioma que habla
 - Microservicio = El negocio que tiene
 
-Catalog.API es un **pequeño negocio (microservicio)** que **habla en REST API**.
-
+Catalog.API es un **pequeï¿½o negocio (microservicio)** que **habla en REST API**.

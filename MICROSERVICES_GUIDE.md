@@ -6,14 +6,14 @@ This is a **reference .NET 9 e-commerce application** built using a **distribute
 ---
 
 ## Table of Contents
-1. [Microservices Overview](#microservices-overview)
-2. [Infrastructure Components](#infrastructure-components)
-3. [Architectural Patterns](#architectural-patterns)
-4. [Communication Patterns](#communication-patterns)
-5. [Deployment & Orchestration](#deployment--orchestration)
-6. [End-to-End Example](#end-to-end-example)
-7. [Key Technologies](#key-technologies)
-8. [Learning Outcomes](#learning-outcomes)
+1. Microservices Overview
+2. Infrastructure Components
+3. Architectural Patterns
+4. Communication Patterns
+5. Deployment & Orchestration
+6. End-to-End Example
+7. Key Technologies
+8. Learning Outcomes
 
 ---
 
@@ -156,13 +156,13 @@ This is a **reference .NET 9 e-commerce application** built using a **distribute
 ## Architectural Patterns
 
 ### 1. Event-Driven Architecture
-```
+```text
 Event Bus (RabbitMQ)
     ?
 PublishAsync(IntegrationEvent)
     ?
 Multiple Subscribers Listen & React
-```
+      ```
 **Why**: Loose coupling, eventual consistency, scalable communication
 
 **Key Components**:
@@ -280,7 +280,7 @@ Multiple Subscribers Listen & React
   - Provides Aspire Dashboard for monitoring
 
 ### Container Startup Order (defined in Program.cs)
-```
+```text
 1. Redis (started first - lightweight)
 2. RabbitMQ (started - needed by services)
 3. PostgreSQL (started - needed by services)
@@ -290,7 +290,7 @@ Multiple Subscribers Listen & React
 7. Start OrderProcessor, PaymentProcessor (depend on queues)
 8. Start WebApp (frontend)
 9. Start Mobile BFF (reverse proxy)
-```
+      ```
 
 ### Health Checks
 - `/health` endpoints on each service
@@ -303,7 +303,7 @@ Multiple Subscribers Listen & React
 
 ### Step-by-Step Flow
 
-```
+```text
 1. User opens WebApp
    ?? User authenticates via Identity.API
 
@@ -361,7 +361,7 @@ Multiple Subscribers Listen & React
 ```
 
 ### Failure Scenario Example:
-```
+```text
 If PaymentProcessor crashes during payment:
 1. Payment request sent to provider
 2. Payment succeeds but processor crashes before acknowledging message
@@ -377,7 +377,7 @@ If PaymentProcessor crashes during payment:
 ## Key Technologies
 
 | Layer | Technology | Purpose |
-|-------|------------|---------|
+| ------- | ------------ | --------- |
 | **Frontend** | ASP.NET Core, Blazor, Razor Components | User interface |
 | **APIs** | ASP.NET Core, REST, gRPC | Service communication |
 | **Message Queue** | RabbitMQ | Asynchronous events |
@@ -482,7 +482,7 @@ Use eShop example:
 ## Quick Reference: Service Matrix
 
 | Service | Type | Tech | DB | Cache | Queue | Auth | Purpose |
-|---------|------|------|----|----|-------|------|---------|
+| --------- | ------ | ------ | ---- | ---- | ------- | ------ | --------- |
 | Identity.API | REST | ASP.NET | PG | - | - | ? | Authentication |
 | Catalog.API | REST | ASP.NET | PG | - | RMQ | - | Product catalog |
 | Basket.API | gRPC | ASP.NET | - | Redis | RMQ | ? | Shopping cart |
@@ -562,4 +562,3 @@ This is an excellent foundation for understanding and building distributed syste
 **Last Updated**: 2024
 **Repository**: https://github.com/dotnet/eShop
 **Framework**: .NET 9
-
