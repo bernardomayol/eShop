@@ -22,6 +22,9 @@ export class CatalogComponent implements OnInit {
   totalItems = 0;
   loading = false;
 
+  // Exponer Math para el template
+  Math = Math;
+
   constructor(
     private catalogService: CatalogService,
     private basketService: BasketService

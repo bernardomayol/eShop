@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './basket.html',
   styleUrl: './basket.scss',
 })
-export class Basket {}
+export class BasketComponent {}
