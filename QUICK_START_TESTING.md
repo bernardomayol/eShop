@@ -26,13 +26,18 @@ cd C:\Users\ASUS X512F (8441)\source\repos\eShop\src\AngularApp
 # Primera vez solamente:
 npm install
 
-# Ejecutar:
+# Ejecutar (puerto predeterminado):
 ng serve
+
+# O en puerto alternativo si 4200 está ocupado:
+ng serve --port 4201
 ```
 
 ### 3. Abrir en Navegador
 ```
 http://localhost:4200
+# o
+http://localhost:4201
 ```
 
 ---
@@ -45,9 +50,9 @@ http://localhost:4200
 - [ ] catalog-api escuchando en puerto 5222
 - [ ] No hay errores en los logs
 
-### Angular Frontend (port 4200)
+### Angular Frontend (port 4200 o 4201)
 - [ ] `ng serve` ejecutándose sin errores TypeScript
-- [ ] Navegador abierto en http://localhost:4200
+- [ ] Navegador abierto en http://localhost:4200 o http://localhost:4201
 - [ ] Título "eShop - Catálogo de Productos" visible
 - [ ] No hay errores de CORS en la consola del navegador (F12)
 
