@@ -9,6 +9,8 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
+app.UseCors();
+
 app.MapGrpcService<BasketService>();
 
 app.Run();

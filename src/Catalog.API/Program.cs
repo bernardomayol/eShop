@@ -16,6 +16,8 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
+app.UseCors();
+
 app.UseStatusCodePages();
 
 app.MapCatalogApi();
