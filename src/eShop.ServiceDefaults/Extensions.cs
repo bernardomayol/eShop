@@ -28,6 +28,23 @@ public static partial class Extensions
             http.AddServiceDiscovery();
         });
 
+        // Add CORS for Angular frontend
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.WithOrigins(
+                    "http://localhost:4200",
+                    "https://localhost:4200",
+                    "http://localhost:4201",
+                    "https://localhost:4201"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            });
+        });
+
         return builder;
     }
 

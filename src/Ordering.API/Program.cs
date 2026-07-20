@@ -16,6 +16,8 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
+app.UseCors();
+
 var orders = app.NewVersionedApi("Orders");
 
 orders.MapOrdersApiV1()

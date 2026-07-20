@@ -1,0 +1,87 @@
+<div class="catalog-container">
+  <header class="catalog-header">
+    <h1>eShop - Catálogo de Productos</h1>
+    <a routerLink="/basket" class="basket-link">
+      🛒 Ver Carrito
+    </a>
+  </header>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label for="brandFilter">Marca:</label>
+      <select 
+        id="brandFilter" 
+        [(ngModel)]="selectedBrandId" 
+        (change)="onFilterChange()">
+        <option [value]="undefined">Todas las marcas</option>
+        <option *ngFor="let brand of brands" [value]="brand.id">
+          {{ brand.brand }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="typeFilter">Tipo:</label>
+      <select 
+        id="typeFilter" 
+        [(ngModel)]="selectedTypeId" 
+        (change)="onFilterChange()">
+        <option [value]="undefined">Todos los tipos</option>
+        <option *ngFor="let type of types" [value]="type.id">
+          {{ type.type }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    Cargando productos...
+  </div>
+
+  <div class="catalog-grid" *ngIf="!loading">
+    <div class="catalog-item" *ngFor="let item of items">
+      <div class="item-image">
+        <img 
+          [src]="item.pictureUri || 'assets/placeholder.png'" 
+          [alt]="item.name"
+          (error)="$event.target.src='assets/placeholder.png'">
+      </div>
+      <div class="item-details">
+        <h3>{{ item.name }}</h3>
+        <p class="item-description">{{ item.description }}</p>
+        <div class="item-footer">
+          <span class="item-price">{{ item.price | currency }}</span>
+          <button 
+            class="add-to-cart-btn" 
+            (click)="addToBasket(item)"
+            [disabled]="item.availableStock === 0">
+            {{ item.availableStock === 0 ? 'Agotado' : 'Agregar' }}
+          </button>
+        </div>
+        <div class="item-stock" *ngIf="item.availableStock > 0">
+          Stock: {{ item.availableStock }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="!loading && items.length > 0">
+    <button 
+      (click)="previousPage()" 
+      [disabled]="pageIndex === 0">
+      ← Anterior
+    </button>
+    <span>
+      Página {{ pageIndex + 1 }} de {{ Math.ceil(totalItems / pageSize) || 1 }}
+    </span>
+    <button 
+      (click)="nextPage()" 
+      [disabled]="(pageIndex + 1) * pageSize >= totalItems">
+      Siguiente →
+    </button>
+  </div>
+
+  <div class="no-results" *ngIf="!loading && items.length === 0">
+    No se encontraron productos con los filtros seleccionados.
+  </div>
+</div>

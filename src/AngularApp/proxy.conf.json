@@ -1,0 +1,26 @@
+{
+  "/catalog-api": {
+    "target": "http://localhost:62311",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/orders": {
+    "target": "http://localhost:62311",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/identity": {
+    "target": "http://localhost:62311",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/basket": {
+    "target": "http://localhost:5221",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
