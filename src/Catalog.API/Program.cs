@@ -1,5 +1,4 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
-
 builder.AddServiceDefaults();
 builder.AddApplicationServices();
 builder.Services.AddProblemDetails();
@@ -21,4 +20,8 @@ app.UseStatusCodePages();
 app.MapCatalogApi();
 
 app.UseDefaultOpenApi();
+foreach (var service in builder.Services)
+{
+    Console.WriteLine($"Servicio: {service.ServiceType.FullName} - Lifetime: {service.Lifetime}");
+}
 app.Run();
