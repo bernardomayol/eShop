@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Pgvector;
 
@@ -16,6 +16,8 @@ public class CatalogItem
     public decimal Price { get; set; }
 
     public string? PictureFileName { get; set; }
+
+    public decimal Height { get; set; } 
 
     public int CatalogTypeId { get; set; }
 

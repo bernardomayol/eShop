@@ -945,6 +945,14 @@
               "string"
             ]
           },
+          "height": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
           "catalogTypeId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [

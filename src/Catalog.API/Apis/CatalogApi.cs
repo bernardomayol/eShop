@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -377,7 +377,8 @@ public static class CatalogApi
             Price = product.Price,
             AvailableStock = product.AvailableStock,
             RestockThreshold = product.RestockThreshold,
-            MaxStockThreshold = product.MaxStockThreshold
+            MaxStockThreshold = product.MaxStockThreshold,
+            Height = product.Height,
         };
         item.Embedding = await services.CatalogAI.GetEmbeddingAsync(item);
 

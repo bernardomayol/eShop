@@ -10,6 +10,7 @@
                 new ApiResource("orders", "Orders Service"),
                 new ApiResource("basket", "Basket Service"),
                 new ApiResource("webhooks", "Webhooks registration Service"),
+                new ApiResource("catalog", "Catalog Service"),
             };
         }
 
@@ -22,6 +23,7 @@
                 new ApiScope("orders", "Orders Service"),
                 new ApiScope("basket", "Basket Service"),
                 new ApiScope("webhooks", "Webhooks registration Service"),
+                new ApiScope("catalog", "Catalog Service"),
             };
         }
 
@@ -185,7 +187,49 @@
                     {
                         "webhooks"
                     }
-                }
+                },
+                new Client
+                {
+                    ClientId = "reactadmin",
+                    ClientName = "React Admin Panel",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    ClientUri = "http://localhost:5173",
+                    AllowedGrantTypes = GrantTypes.Code, // O Authorization Code Flow con PKCE recomendado para SPAs
+                    RequirePkce = true,
+                    RequireConsent = false,
+                    AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+
+                    RedirectUris = new List<string>
+                    {
+                        "http://localhost:5173",
+                        "http://localhost:5173/signin-oidc" // O la ruta de callback de tu app de React
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:5173",
+                        "http://localhost:5173/signout-callback-oidc"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://localhost:5173"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "catalog", // Permiso para acceder a los endpoints de la Catalog.API
+                        "orders",
+                        "basket"
+                    },
+                    AccessTokenLifetime = 60*60*2, // 2 horas
+                    IdentityTokenLifetime = 60*60*2
+                },
             };
         }
     }
